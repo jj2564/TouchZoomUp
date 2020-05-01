@@ -75,13 +75,18 @@ class TouchZoomImageView: UIImageView {
 extension TouchZoomImageView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-
+        viewZoom.isHidden = false
+        changeViewZoom(touches)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        changeViewZoom(touches)
+    }
+    
+    private func changeViewZoom(_ touches: Set<UITouch>) {
         guard let touch = touches.first else { return }
         let point = touch.location(in: self)
-        
-        viewZoom.isHidden = false
         viewZoom.center = point
-
         viewZoom.image = self.cutWithFrame(frame: viewZoom.frame)
     }
     
